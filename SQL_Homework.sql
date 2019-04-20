@@ -94,10 +94,12 @@ ORDER BY c.last_name;
 SELECT * FROM film;
 SELECT * FROM language;
 
-SELECT f.title FROM
-film f WHERE (f.language_id in 
-(SELECT l.language_id FROM language l WHERE name='English'))
-AND (f.title LIKE 'K%' AND f.title LIKE 'Q%');
+SELECT f.title 
+FROM film f 
+WHERE (f.language_id in (
+	SELECT l.language_id FROM language l WHERE name='English'
+    )
+    AND (f.title LIKE 'K%' OR f.title LIKE 'Q%'));
 
 SELECT * FROM film_actor;
 SELECT * FROM actor;
@@ -174,6 +176,6 @@ r.rental_id=p.rental_id
 GROUP BY ca.name
 ORDER BY SUM(p.amount) DESC LIMIT 5;
 
-SHOW CREATE VIEW sakila.gross_revenue;
+SELECT * FROM sakila.gross_revenue;
 
 DROP VIEW IF EXISTS sakila.gross_revenue;
